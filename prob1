@@ -1,3 +1,29 @@
-dfdfsdfgdsfgg
-dsfgdsg
-dfg
+#include<iostream>
+using namespace std;
+
+int main(){
+	int small,big,t,n;
+	cin>>n>>t;
+	int temp;
+	int i;
+	cin>>temp;
+	small = temp;
+	big = temp;
+	
+	for(i = 2; i<= n; i++){
+		cin>>temp;
+		if(temp<small)
+			small = temp;
+		if(temp>big)
+			big = temp;
+	}
+	
+	while(t--){
+		cin>>temp;
+		if(temp>=small && temp<=big)
+			cout<<"Yes";
+		else
+			cout<<"No";
+	}
+	return 0;
+}
