@@ -8,19 +8,53 @@ int main(){
 	int value, chk, ans;
 	
 	cin>>t;
+	chk = 0;
+	ans = 0;
 	
+	cin>>value;
+	while(chk < value){
+			temp = ans;
+			
+			oddDigits = 0;
+			while(temp > 0){
+			
+				
+				if(temp % 2 == 1){
+					oddDigits++;
+					break;
+				}
+				temp = temp/10;
+			}
+			
+			
+		if(oddDigits == 0)
+			chk++;
+		ans++;
+	}
+		
+	ans--;
+	cout<<ans<<endl;
+	t--;
 	
 	while(t--){
 		cin>>value;
-		chk = 0;
-		ans = 0;
+		
+		if(value < chk){
+		
+			chk = 0;
+			ans = 0;
+		}
+		else
+			ans++;
+	
+		
 		
 		while(chk < value){
 			temp = ans;
 			
 			oddDigits = 0;
 			while(temp > 0){
-				
+			
 				
 				if(temp % 2 == 1){
 					oddDigits++;
