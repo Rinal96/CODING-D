@@ -4,17 +4,19 @@ using namespace std;
 
 int main(){
 	int t;
-	int oddDigits,temp;
+	int oddDigits,temp, beforeOdd;
 	int value, chk, ans;
 	
 	cin>>t;
+	
+	while(t--){
 	chk = 0;
 	ans = 0;
 	
 	cin>>value;
 	while(chk < value){
 			temp = ans;
-			
+			beforeOdd= 0;
 			oddDigits = 0;
 			while(temp > 0){
 			
@@ -24,34 +26,45 @@ int main(){
 					break;
 				}
 				temp = temp/10;
+				beforeOdd++;
 			}
 			
 			
-		if(oddDigits == 0)
+		if(oddDigits == 0){
 			chk++;
-		ans++;
+			ans++;
+		}
+		else{
+			if(beforeOdd == 0)
+				ans++;
+			else 
+				ans = ans + beforeOdd*10;
+		}
 	}
 		
 	ans--;
 	cout<<ans<<endl;
-	t--;
+	}
 	
-	while(t--){
+	
+	/*while(t--){
 		cin>>value;
 		
-		if(value < chk){
+		/*if(value < chk){
 		
 			chk = 0;
 			ans = 0;
 		}
 		else
 			ans++;
+		ans = 0;
+		chk = 0;
 	
 		
 		
 		while(chk < value){
 			temp = ans;
-			
+			beforeOdd= 0;
 			oddDigits = 0;
 			while(temp > 0){
 			
@@ -61,16 +74,21 @@ int main(){
 					break;
 				}
 				temp = temp/10;
+				beforeOdd++;
 			}
 			
 			
-			if(oddDigits == 0)
-				chk++;
+		if(oddDigits == 0){
+			chk++;
 			ans++;
 		}
-		
-		ans--;
-		cout<<ans<<endl;
+		else
+			ans = ans + beforeOdd*10;
 	}
+		
+			ans--;
+			cout<<ans<<endl;
+		
+	}*/
 	return 0;
 }
