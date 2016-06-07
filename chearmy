@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 	int t;
-	int oddDigits,oddTerms,dig,temp;
+	int oddDigits,dig,temp;
 	int value, chk, ans;
 	
 	cin>>t;
@@ -23,17 +23,14 @@ int main(){
 				dig = temp%10;
 				temp = temp/10;
 				
-				if(dig % 2 == 1)
+				if(dig % 2 == 1){
 					oddDigits++;
+					break;
+				}
 			}
 			
-			oddTerms = 1;
-			for(temp = 1; temp <= oddDigits; temp++)
-				oddTerms *= 2;
 			
-			oddTerms--;
-			
-			if(oddTerms%2 == 0)
+			if(oddDigits == 0)
 				chk++;
 			ans++;
 		}
