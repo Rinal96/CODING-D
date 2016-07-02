@@ -30,8 +30,8 @@ int main(){
 		
 		avg = avg / n;
 		if(avg >=4)
-			three == 1;
-		cout<<one<<two<<three<<endl;
+			three = 1;
+		
 		if(one == 1 && two == 1 && three == 1)	
 			cout<<"Yes"<<endl;
 		else
