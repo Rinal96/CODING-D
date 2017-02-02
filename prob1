@@ -1,43 +1,128 @@
 #include<iostream>
+#include<stdio.h>
+#include<math.h>
 using namespace std;
 
 int main(){
-	
+	long long int num,root,prec;
+	long long int small,mid,big;
+	long long int temp;
+	int flag = 0;
+	long long int befdec, afdec;
 	int t;
-	int one,two,three;
-	one = 1;
-	two = 0;
-	three = 0;
-	int n,i,j;
-	int avg,temp;
 	cin>>t;
 	
 	while(t--){
-		avg = 0;
-		one = 1;
-		two = 0;
-		three = 0;
-		cin>>n;
-		for(i=1; i<=n; i++){
-			cin>>temp;
-			avg = avg + temp;
-			//cout<<"   "<<temp;	
-			if(temp == 2)
-				one = 0;
-			else if(temp == 5)
-				two = 1;
+	flag = 0;
+	
+	
+	cin>>num>>root>>prec;
+	small = 0;
+	big = num;
+	mid = (small + big + 1)/root;
+	
+	
+	while(!( pow(mid,root) <= num && num < pow(mid+1, root))){
+		cout<<mid<<".0"<<endl;
+		if(pow(mid, root) > num){
+			big = mid;
+			mid = (small + big + 1)/2;
+		}
+		else{
+			small = mid ;
+			mid = (small + big + 1)/2;
 		}
 		
-		avg = avg / n;
-		if(avg >=4)
-			three = 1;
-		//cout<<"Average : "<<avg<<endl;
-		//cout<<one<<two<<three<<endl;
-		if(one == 1 && two == 1 && three == 1)	
-			cout<<"Yes"<<endl;
-		else
-			cout<<"No"<<endl;
-	}
 		
-	return 0;
+	}
+	if(pow(mid,root) == num)
+		flag = 1;
+	
+	cout<<mid<<".0"<<endl;
+	for(int i = 1; i <= prec; i++){
+		if(flag == 1)
+			break;
+		num = num * pow(10,root);
+		mid = mid * 10;
+		//cout<<mid<<endl;
+		afdec = mid % int(pow(10,i));
+		befdec = mid / pow(10,i);
+		cout<<befdec<<"."<<afdec;
+		cout<<endl;
+		small = mid;
+		big = small + 10;
+		mid = (small + big)/2;
+		
+		while(!( pow(mid,root) <= num && num < pow(mid+1, root))){
+			//cout<<mid<<endl;
+			afdec = mid % int(pow(10,i));
+			befdec = mid / pow(10,i);
+			cout<<befdec<<"."<<afdec;
+			cout<<endl;
+			if(pow(mid, root) > num){
+				big = mid - 1;
+				mid = (small + big)/2;
+			}
+			else{
+				small = mid + 1;
+				mid = (small + big)/2;
+			}
+		
+		
+		}
+		if(pow(mid,root) == num)
+			flag = 1;
+		//cout<<mid<<endl;
+		afdec = mid % int(pow(10,i));
+		befdec = mid / pow(10,i);
+		cout<<befdec<<"."<<afdec;
+		cout<<endl;
+		
+	}
+	
+	if(flag != 1){
+		cout<<"reached special\n";
+		num = num * pow(10,root);
+		cout<<"reached special\n";
+		mid = mid * 10;
+		cout<<"reached special\n";
+		small = mid;
+		cout<<"reached special\n";
+		cout<<"before whuikle\n";
+			big = small + 10;
+			mid = (small + big)/2;
+		cout<<"before whuikle";
+			while(!( pow(mid,root) <= num && num < pow(mid+1, root))){
+				//cout<<mid<<endl;
+			
+				if(pow(mid, root) > num){
+					big = mid - 1;
+					mid = (small + big)/2;
+				}
+				else{
+					small = mid + 1;
+					mid = (small + big)/2;
+				}
+		
+		
+			}
+			
+			cout<<"got number";
+		if(mid % 10 >= 5){
+			mid = mid / 10;
+			mid = mid + 1;
+		}
+		else 
+			mid = mid/10;
+	
+		afdec = mid % int(pow(10,prec));
+		befdec = mid / pow(10,prec);
+		cout<<befdec<<"."<<afdec;
+		cout<<endl;
+	}
+	cout<<"out of special\n";
+	
+	cout<<endl;
+	}
+	
 }
