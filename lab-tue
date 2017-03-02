@@ -1,0 +1,43 @@
+.model tiny
+.386
+.data
+	data1 db "Microprocessor"
+	count db 14
+	inpos1 db 1,6,7,14
+	res1 db 21 dup(?)
+.code
+.startup
+	lea si, data1
+	lea bx, inpos1
+	lea di, res1
+	mov dl,0
+	mov al,'?'
+	mov cl,count
+	
+	
+x: 	cmp dl,[bx]
+	jnz x2
+	mov [di],al
+	inc di
+	inc bx
+	
+	x2:	mov ah,[si]
+		mov [di],ah
+		inc si
+		inc di
+		inc dl
+		dec cl
+		jnz x
+	
+	cmp dl,[bx]
+	jnz x3
+	mov[di],al
+	
+x3: 
+		
+
+.exit
+end
+	
+	 
+	
