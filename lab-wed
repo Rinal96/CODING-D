@@ -1,0 +1,74 @@
+.model tiny
+.386
+.data
+	dat1 db "microprocessor", "interfacingmpi", "programmingmpi", "architecturess", "simdsisdmimdmi"
+	off1 db 1
+	fin1 db 70 dup(?)
+	
+	
+.code
+.startup
+	lea di,fin1
+	lea bx, off1
+	mov ch,5
+	
+	
+x:	lea si, dat1
+	
+	
+	
+	
+	mov dl,[bx]
+	mov dh,0
+	add si,dx
+	mov al,[si]
+	mov cl,4
+	mov dh,0
+	mov ah,0
+	
+	x2: add si,14
+		inc dh
+		cmp al,[si]
+		jae x3
+		mov al,[si]
+		mov ah,dh	
+		
+	x3:	dec cl
+		jnz x2
+		
+	
+	lea si,dat1
+	
+	x5:	inc ah
+		dec ah
+		jz x4
+		add si,14
+		dec ah
+		jnz x5
+		
+	x4:
+	mov ah,14
+	x6:	
+		mov dh,[si]
+		mov al, 0
+		mov [si],al
+		mov [di],dh
+		inc si
+		inc di
+		dec ah
+		jnz x6
+		
+	dec ch
+	jnz x
+	
+	
+	
+		
+	
+	
+		
+	
+		
+
+.exit
+end
