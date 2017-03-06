@@ -1,0 +1,32 @@
+.model tiny
+.386
+.data
+loc db "hello ree baby "
+res db 16 dup(?)
+count db 3
+.code 
+.startup
+lea si,loc
+lea di,res
+mov ch,count
+x5: mov cl,00h
+    mov bl,' '
+x1: cmp bl,[si]
+    jz x2
+	inc cl
+	inc si
+	jmp x1
+x2: lea si,loc 
+x3: mov di,si+cl
+    mov bh,[si]
+    mov [di],bh
+	inc si
+	dec di
+    dec cl
+	jnz x3
+x4: lea di,si 
+    dec ch
+	jnz x5
+.exit
+end
+	
