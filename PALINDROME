@@ -1,0 +1,33 @@
+.model tiny
+.386
+.data
+loc db "LANNAL"
+res1 db ?
+res db 6 dup(?)
+count dw 5
+.code
+.startup
+lea si,loc
+lea di,res
+mov bx,count
+x1: mov ch,[si+bx]
+    mov [di],ch
+	inc di
+	dec bx
+	jnz x1
+	mov cl,[si]
+	mov [di],cl
+    lea di,res
+    mov bx,count
+	inc bx
+x2: mov cl,[si]
+	cmp [di],cl
+	jnz x3
+	inc si
+	inc di
+	dec bx
+	jnz x2
+x3:
+	
+.exit
+end
