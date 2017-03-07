@@ -27,7 +27,8 @@ x2:	inc si
 	jnz x1
 x3:	mov [di],al
 	inc di
-	mov bx,00
+	mov ah,0
+	mov [bx],ah
 	dec dh
 	jnz x4
 	
