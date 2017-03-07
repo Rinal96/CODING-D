@@ -1,0 +1,35 @@
+.model tiny
+.386
+.data
+	loc db 01h,05h,08h,06h
+	res db 4 dup(?)
+	count dw 3
+	
+.code
+.startup
+	lea di,res
+	mov dh,4
+
+x4:	lea si,loc
+	mov cx,count
+	mov al,[si]
+	inc si
+x1:	cmp [si],al
+	jng x2
+	mov al,[si]
+	mov bx,si
+	inc si
+	dec cx
+	jnz x1
+	jmp x3
+x2:	inc si
+	dec cx
+	jnz x1
+x3:	mov [di],al
+	inc di
+	mov bx,00
+	dec dh
+	jnz x4
+	
+.exit
+end
