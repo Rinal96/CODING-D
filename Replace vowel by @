@@ -1,0 +1,32 @@
+.model tiny
+.386
+.data
+loc db "hello micro"
+count db 11
+.code
+.startup
+lea si,loc
+mov cl,count
+mov bl,'@'
+x1: mov al,[si]
+    cmp al,'a'
+    jz x2
+	cmp al,'e'
+	jz x2
+	cmp al,'i'
+	jz x2
+	cmp al,'o'
+	jz x2
+	cmp al,'u'
+	jz x2
+	inc si
+	dec cl
+	jnz x1
+	jmp x3
+x2: mov [si],bl
+    inc si
+	dec cl
+	jnz x1
+x3:
+.exit
+end
