@@ -1,1 +1,33 @@
+.model tiny
+.386
+.data
+  dat1 db 'abcdefghijklmno'
+  dat2 db 'ABCDEFGHIJKLMNO'
+  count db 7
+  
+ .code
+ .startup
+  
+    lea si,dat1
+    lea di,dat2
+    mov cl, count
 
+x:  mov al,[si]
+    mov bl,[di]
+    mov [di],al
+    mov [si],bl
+    inc si
+    inc si
+    inc di
+    inc di
+    dec cl
+    jnz x
+    
+    
+    mov al,[si]
+    mov bl,[si]
+    mov [di],bl
+    mov [si],al
+    
+.exit
+end
