@@ -1,0 +1,70 @@
+model tiny
+.386
+.data
+string1 db "enter username$"
+inp db 5
+cnt db ?
+store1 db 6 dup('$')
+string db "enter password$"
+inp2 db 8
+cnt2 db ?
+store2 db 9 dup('$')
+nl db 0dh,0ah,'$'
+nam db "riad$"
+pass db "1234567$"
+pr db "hello username$"
+.code
+.startup
+lea dx,string1
+mov ah,09h
+int 21h
+lea dx,nl
+mov ah,09h
+int 21h
+lea dx,inp
+mov ah,0ah
+int 21h
+lea dx,nl
+mov ah,09h
+int 21h
+lea si,store1
+mov cl,cnt
+lea di,nam
+x1: mov al,[si]
+    cmp [di],al
+	jnz x2
+	inc si
+	inc di
+	dec cl
+	jnz x1
+x3:lea dx,string
+   mov ah,09h
+   int 21h  
+   lea dx,nl
+   mov ah,09h
+   int 21h
+   lea dx,inp2
+   mov ah,0ah
+   int 21h
+   lea dx,nl
+   mov ah,09h
+   int 21h
+   lea si,store2
+   mov cl,cnt2
+   lea di,pass
+x4: mov al,[si]
+    cmp [di],al
+	jnz x2
+	inc si
+	inc di
+	dec cl
+	jnz x4
+lea dx,pr
+mov ah,09h
+int 21h
+lea dx,nl
+mov ah,09h
+int 21h
+x2:
+.exit 
+end	
