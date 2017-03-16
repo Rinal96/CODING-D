@@ -1,0 +1,69 @@
+.model tiny
+.386
+.data
+  inp db 16
+  cnt db ?
+  store db 17 dup('$')
+  inp2 db 16
+  cnt2  db ?
+  store2 db 17 dup('$')
+  nl db 0dh,0ah,'$'
+  
+ .code
+ .startup
+  
+    lea dx,inp
+	mov ah,0ah
+	int 21h
+	lea dx,nl
+	mov ah,09h
+	int 21h
+	lea dx,inp2
+	mov ah,0ah
+	int 21h
+	lea dx,nl
+	mov ah,09h
+	int 21h
+    lea si,store
+	lea di,store2
+	mov cl,07h
+x:  mov al,[si]
+    mov bl,[di]
+    mov [di],al
+    mov [si],bl
+    inc si
+    inc si
+    inc di
+    inc di
+    dec cl
+    jnz x
+    
+    
+    mov al,[si]
+    mov bl,[si]
+    mov [di],bl
+    mov [si],al
+	lea si,store
+	lea di,store2
+	mov cl,cnt
+x1: mov bl,[si]
+    mov ah,02h
+    int 21h
+    inc si
+	dec cl
+	jnz x1
+lea dx,nl
+mov ah,09h
+int 21h
+mov cl,cnt2
+x2: mov bh,[di]
+    mov ah,02h
+	int 21h
+	inc di
+	dec cl
+	jnz x2
+lea dx,nl
+mov ah,09h
+int 21h	
+.exit
+end
