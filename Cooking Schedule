@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+
+void insert(int num, int *lengths, int k){
+		if(num < lengths[k-1])
+			return;
+		int pos = 0;
+		while(lengths[pos] > num)
+			pos++;
+			
+		for(int i = k-2; i >= pos; i--)
+			lengths[i+1] = lengths[i];
+			
+		lengths[pos] = num;
+}
+
+void insertNew(int num, int *arr, int k){
+	if(k == 0){
+		arr[0] = num;
+		return;
+	}
+	
+	if(num < arr[k-1]){
+		arr[k] = num;
+		return;
+	}
+	
+	for(int i = k-1; i >= 0; i--){
+		if(num > arr[i]){
+			arr[i+1] = arr[i];
+			arr[i] = num;
+		}
+		else
+			break;
+	}
+}
+
+int main(){
+	int n;
+	int k;
+	
+	cin>>n>>k;
+	int arr[n];
+	int lengths[k];
+	
+	for(int i = 0; i < n; i++)
+		cin>>arr[i];
+	
+	int kSize = 0;	
+	int tempLen = 1;
+	int currentBit = arr[0];
+	
+	for(int i = 1; i< n; i++){
+		if(arr[i] == arr[i-1])
+			tempLen++;
+		else{
+			currentBit = arr[i];
+			if(k > kSize){
+				
+				insertNew(tempLen,lengths,kSize);
+				kSize++;
+			}
+			else
+				insert(tempLen,lengths,k);
+			tempLen = 1;
+		}
+	}
+	insert(tempLen,lengths,k);
+	for(int i = 0; i < k; i++)
+		cout<<lengths[i]<<" ";
+	cout<<endl;
+	
+						
+		
+				
+			
+			
+	
+	return 0;
+}
