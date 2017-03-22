@@ -1,0 +1,81 @@
+.model tiny
+.data
+fname db 'a.txt',0
+f2 db 'b.txt',0
+handle dw ?
+store2 db 'ABCDEFGHIJKLMNO$'
+store db 20 dup('$')
+nl db 0dh,0ah,'$'
+.code
+.startup
+
+	
+	mov ah,3dh
+	mov al,2
+	lea dx,fname
+	int 21h
+	
+	mov handle,ax
+	mov bx,handle
+	mov ah,3fh
+	mov cx,15
+	lea dx,store
+	int 21h
+	
+	mov bx,handle
+	mov ah,3eh
+	int 21h
+	
+	lea si,store
+	lea di,store2
+	
+	mov cl,07h
+x:  mov al,[si]
+    mov bl,[di]
+    mov [di],al
+    mov [si],bl
+    inc si
+    inc si
+    inc di
+    inc di
+    dec cl
+    jnz x
+    
+    
+    mov al,[si]
+    mov bl,[si]
+    mov [di],bl
+    mov [si],al
+	lea si,store
+	lea di,store2
+	mov cl,15
+	
+x1: mov dl,[si]
+    mov ah,02h
+    int 21h
+    inc si
+	dec cl
+	jnz x1
+	
+	lea dx,nl
+	mov ah,09h
+	int 21h
+	mov cl,15
+	
+	mov ah,3dh
+	mov al,2
+	lea dx,f2
+	int 21h
+	
+	mov bx,ax
+	mov ah,40h
+	mov cx,15
+	lea dx,store
+	int 21h
+	
+	mov ah,3eh
+	int 21h
+	
+.exit
+end
+	
