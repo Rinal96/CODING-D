@@ -1,0 +1,108 @@
+.model tiny
+.386
+.data
+fname db 'a.txt',0
+handle dw ?
+store2 db 'ABCDEFGHIJKLMNO$'
+store db 20 dup('$')
+.code
+.startup
+
+	
+	mov ah,3dh
+	mov al,2
+	lea dx,fname
+	int 21h
+	
+	mov handle,ax
+	mov bx,handle
+	mov ah,3fh
+	mov cx,15
+	lea dx,store
+	int 21h
+	
+	mov bx,handle
+	mov ah,3eh
+	int 21h
+	
+	lea si,store
+	lea di,store2
+	
+	mov cl,07h
+x:  mov al,[si]
+    mov bl,[di]
+    mov [di],al
+    mov [si],bl
+    inc si
+    inc si
+    inc di
+    inc di
+    dec cl
+    jnz x
+    
+    
+    mov al,[si]
+    mov bl,[si]
+    mov [di],bl
+    mov [si],al
+	
+	mov al,0
+	mov bx,0
+	mov dx,0
+	mov cx,0
+	
+	mov ah,0fh
+	int 10h
+	
+	mov ah,0
+	mov al,3
+	int 10h
+	
+	lea si,store
+	lea di,store2
+	
+	mov dl,0
+x1: mov al,02h
+	mov dh,0
+	mov bh,0
+	int 10h
+	
+	mov ah,09h
+	mov al,[si]
+	mov bh,0
+	mov cx,1
+	mov bl,00000100b
+	int 10h
+	
+	inc dl
+	inc si
+	cmp dl,15
+	jnz x1
+
+	mov dl,0
+x2: mov al,02h
+	mov dh,1
+	mov bh,0
+	int 10h
+	
+	mov ah,09h
+	mov al,[di]
+	mov bh,0
+	mov cx,1
+	mov bl,00000010b
+	int 10h
+	
+	inc dl
+	inc di
+	cmp dl,15
+	jnz x2
+	
+    mov ah,07h
+x4: int 21h
+	cmp al,'%'
+	jnz x4
+	
+.exit
+end
+
+	
