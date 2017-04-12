@@ -1,0 +1,62 @@
+.model tiny
+.386
+.data
+store1 db "ABCDEFGHIJKLMNO"
+store2 db "abcdefghijklmno"
+
+.code
+.startup
+	mov ah,0fh
+	int 10h
+	
+	mov ah,0h
+	mov al,3
+	int 10h
+	
+	lea si,store1
+	lea di,store2
+	
+
+	mov dl,0
+x1:	mov dh,0h
+	mov bh,0h
+	mov ah,02h
+	int 10h
+	
+	mov ah,09h
+	mov al,[si]
+	mov bh,0h
+	mov cx,1
+    mov bl,00000010b
+	int 10h
+	inc dl
+	inc si
+	cmp dl,15
+	jnz x1
+		
+	mov dl,0
+x3: mov dh,1
+	mov ah,02h
+	mov bh,0h
+	int 10h
+	
+	mov ah,09h
+	mov al,[di]
+	mov bh,0h
+	mov bl,11111000b
+	int 10h
+	inc di
+	inc dl
+	cmp dl,15
+	jnz x3
+
+
+
+	mov ah,07h
+x2: int 21h
+	cmp al,'%'
+	jnz x2
+.exit
+end
+
+	
