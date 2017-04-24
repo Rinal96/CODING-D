@@ -1,0 +1,44 @@
+fname db 'compre.txt',0
+handle dw ?
+store db 3 dup('$')
+row db 0
+.code 
+.startup
+	mov ah,01h
+	int 21h
+	mov val,al
+	
+	mov ah,01h
+	int 21h
+	mov val2,al
+	
+	
+	mov ah,3dh
+	mov al,2
+	lea dx,fnmae
+	int 21h
+	mov handle,ax
+	
+	mov bx,handle
+	mov ah,3fh
+	mov cx,1
+	lea dx,store
+	
+	mov ah,0fh
+	int 10h
+	
+	mov ah,0
+	mov al,3
+	int 10h
+	
+	lea si,store
+	
+x1: mov ah,02h
+	mov dh,row
+	mov dl,0
+	mov bh,0h
+	int 10h
+	
+	mov ah,09h
+	mov al,[si]
+	
